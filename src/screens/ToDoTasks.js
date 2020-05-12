@@ -8,6 +8,14 @@ const imgPlus = require('../assets/plus.png')
 
 export default class ToDoTasks extends Component {
 
+    static navigationOptions = {
+        tabBarLabel: 'Fazer',
+        tabBarIcon: ({ tintColor }) => (
+            <Image source={imgCheckList}
+                style={[styles.icon, { tintColor }]} />
+        )
+    }
+
     state = {
         tasks: []
     }
@@ -17,18 +25,18 @@ export default class ToDoTasks extends Component {
         this.setState({ tasks: tasksToDo });
     }
 
-    _goToTask() {        
+    _goToTask() {
         this.props.navigation.navigate('Task');
     }
 
-    componentDidMount() {        
+    componentDidMount() {
         readTasksFromFirebaseAsync(this._fetchTasks.bind(this));
     }
 
     render() {
         return (
             <View style={styles.container}>
-                
+
                 <TaskListView tasks={this.state.tasks} navigation={this.props.navigation} />
 
                 <TouchableOpacity

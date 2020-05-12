@@ -3,12 +3,36 @@ import { View, TextInput, Switch, Text, Button, StyleSheet } from 'react-native'
 import { writeTaskOnFirebaseAsync } from '../services/FirebaseApi'
 
 export default class Task extends Component {
+
+    static navigationOptions = {
+        title: 'Tarefa'
+    }
+
     state = {
         key: '',
         title: '',
         resume: '',
         priority: true,
         isDone: false
+    }
+
+    constructor(props) {
+        super(props);
+
+        try {
+
+            const task = this.props.route.params.task;            
+
+            this.state = {
+                key: task.key,
+                title: task.title,
+                resume: task.resume,
+                priority: task.priority,
+                isDone: task.isDone
+            };
+        } catch (error) {
+            console.log('error')
+        }
     }
 
     async _saveTaskAsync() {

@@ -9,6 +9,8 @@ const config = {
     messagingSenderId: "254572727152"
 }
 
+export const initializeFirebaseApi = () => firebase.initializeApp(config)
+
 export const createUserOnFirebaseAsync = async (email, password) => {
     const { user } = await firebase
         .auth()
@@ -42,7 +44,6 @@ export const writeTaskOnFirebaseAsync = async (task) => {
     var tasksReference = firebase
         .database()
         .ref(user.uid)
-
     const key = task.key ?
         task.key :
         tasksReference.child('tasks').push().key;
@@ -70,4 +71,4 @@ export const readTasksFromFirebaseAsync = async (listener) => {
         });
 }
 
-export const initializeFirebaseApi = () => firebase.initializeApp(config)
+

@@ -3,9 +3,17 @@ import { Image, StyleSheet, View } from 'react-native'
 import { TaskListView } from '../components/Components';
 import { readTasksFromFirebaseAsync } from '../services/FirebaseApi';
 
-const imgCheckList = require('../assets/done.png')
+const imgDone = require('../assets/done.png')
 
 export default class DoneTasks extends Component {
+
+    static navigationOptions = {
+        tabBarLabel: 'Feitas',
+        tabBarIcon: ({ tintColor }) => (
+            <Image source={imgDone}
+                style={[styles.icon, { tintColor }]} />
+        )
+    }
 
     state = {
         tasks: []
@@ -14,7 +22,7 @@ export default class DoneTasks extends Component {
     componentDidMount() {
         readTasksFromFirebaseAsync(this._fetchTasks.bind(this));
     }
-    
+
     _fetchTasks(tasks) {
         const tasksToDo = tasks.filter(t => t.isDone);
         this.setState({ tasks: tasksToDo });

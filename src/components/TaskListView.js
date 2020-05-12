@@ -1,16 +1,22 @@
 import React, { Component } from 'react';
-import { View, SectionList, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, SectionList, Text, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
 
 export default class TaskListView extends Component {
 
     _renderSectionHeader(sectionData) {
         return (
-            <View style={styles.headerConteiner}>
-                <View style={styles.headerTagConteiner}>
-                    <Text style={styles.headerTagText}>{sectionData.section.title.substr(0, 1)}</Text>
+            <View>
+                <View style={styles.headerConteiner}>
+                    <View style={styles.headerTagConteiner}>
+                        <Text style={styles.headerTagText}>{sectionData.section.title.substr(0, 1)}</Text>
+                    </View>
+                    <Text style={styles.headerText}>{sectionData.section.title}</Text>
                 </View>
-                <Text style={styles.headerText}>{sectionData.section.title}</Text>
+                <View>
+                    {this.props.tasks.length == 0 ? <ActivityIndicator style={styles.loading} /> : null}
+                </View>
             </View>
+
         );
     }
 
